@@ -10,6 +10,7 @@ import './style.css';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
+  const tasks = ['task1', 'task2', 'task3', 'task4', 'task5', 'task6', 'task7', 'task8', 'task9', 'task10'];
 
   const renderPage = () => {
     switch (currentPage) {
@@ -55,39 +56,20 @@ function App() {
     }
   };
 
+  const getCurrentIndex = () => tasks.indexOf(currentPage);
+  const previousPage = () => setCurrentPage(tasks[getCurrentIndex() - 1] || 'home');
+  const nextPage = () => setCurrentPage(tasks[getCurrentIndex() + 1] || 'home');
+
   return (
     <div>
       <header>Multi-Task App</header>
-      <nav>
-        <button onClick={() => setCurrentPage('home')}>Home</button>
-        <button onClick={() => setCurrentPage('task1')}>Task 1</button>
-        <button onClick={() => setCurrentPage('task2')}>Task 2</button>
-        <button onClick={() => setCurrentPage('task3')}>Task 3</button>
-        <button onClick={() => setCurrentPage('task4')}>Task 4</button>
-        <button onClick={() => setCurrentPage('task5')}>Task 5</button>
-        <button onClick={() => setCurrentPage('task6')}>Task 6</button>
-        <button onClick={() => setCurrentPage('task7')}>Task 7</button>
-        <button onClick={() => setCurrentPage('task8')}>Task 8</button>
-        <button onClick={() => setCurrentPage('task9')}>Task 9</button>
-        <button onClick={() => setCurrentPage('task10')}>Task 10</button>
-      </nav>
       <div className="container">{renderPage()}</div>
+
       {currentPage !== 'home' && (
         <div className="pagination-buttons">
-          <button
-            onClick={() => setCurrentPage((prev) => (prev === 'task1' ? 'home' : 'task1'))}
-          >
-            Previous
-          </button>
-          <button
-            onClick={() =>
-              setCurrentPage((prev) =>
-                prev === 'task1' ? 'task2' : prev === 'task2' ? 'task3' : prev === 'task3' ? 'task4' : prev === 'task4' ? 'task5' : prev === 'task5' ? 'task6' : prev === 'task6' ? 'task7' : prev === 'task7' ? 'task8' : prev === 'task8' ? 'task9' : prev === 'task9' ? 'task10' : 'home'
-              )
-            }
-          >
-            Next
-          </button>
+          <button onClick={() => setCurrentPage('home')}>Back to Home</button>
+          <button onClick={previousPage}>Previous</button>
+          <button onClick={nextPage}>Next</button>
         </div>
       )}
     </div>
